@@ -1,13 +1,15 @@
 <?php
-class AnimalView{
-  function ExibirTodosAnimais(){
+class AnimalView
+{
+  function ExibirTodosAnimais()
+  {
     $animalController = new AnimalController();
     $listaTodosAnimais = $animalController->Listar();
-    
-    for ($i=0; $i < count($listaTodosAnimais); $i++) { 
+
+    for ($i = 0; $i < count($listaTodosAnimais); $i++) {
       echo "
         <div class='caixaAnimal'>
-            <a href='atendimento.html'>
+            <a href='atendimento.php?id={$listaTodosAnimais[$i]->Codigo}'>
                 <img src='images/{$listaTodosAnimais[$i]->Nome}.png'>    
                 <div>
                     <h1>{$listaTodosAnimais[$i]->Nome}</h1>
@@ -15,20 +17,21 @@ class AnimalView{
                 </div>
             </a>
         </div>
-      "; 
+      ";
     }
   }
 
-  function BuscarPeloNome($nome){
+  function BuscarPeloNome($nome)
+  {
     $animalController = new AnimalController();
     $listaAnimaisComEsteNome = $animalController->BuscarPeloNome($nome);
-    if(count($listaAnimaisComEsteNome) == 0){
+    if (count($listaAnimaisComEsteNome) == 0) {
       echo "<p>Não existem animais com esse nome em nossos sistemas</p>";
     } else {
-      for ($i=0; $i < count($listaAnimaisComEsteNome); $i++) { 
+      for ($i = 0; $i < count($listaAnimaisComEsteNome); $i++) {
         echo "
           <div class='caixaAnimal'>
-              <a href='atendimento.html'>
+              <a href='atendimento.php?id={$listaAnimaisComEsteNome[$i]->Codigo}'>
                   <img src='images/{$listaAnimaisComEsteNome[$i]->Nome}.png'>    
                   <div>
                       <h1>{$listaAnimaisComEsteNome[$i]->Nome}</h1>
@@ -36,9 +39,8 @@ class AnimalView{
                   </div>
               </a>
           </div>
-        "; 
+        ";
       }
     }
   }
 }
-?>

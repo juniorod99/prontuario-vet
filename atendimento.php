@@ -1,3 +1,10 @@
+<?php
+require_once('config.php');
+
+if (isset($_GET['id'])) {
+  $idAnimal = $_GET['id'];
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -17,23 +24,21 @@
 
   <section id="area-tratamento">
     <h1>Registro de atendimento</h1>
-    <form>
-      <div class="item-form">
-        <label>Nome do animal:</label>
-        <input type="text" disabled placeholder="teste">
-      </div>
+    <form action="atendimento.php?id=<?= $idAnimal ?>" method="POST">
+
+      <?php
+      $atendimentoView = new AtendimentoView();
+      $atendimentoView->ExibirDadosAnimal($idAnimal);
+      ?>
 
       <div class="item-form">
         <label>Data:</label>
-        <input type="date" value="2024-08-04">
+        <input type="datetime-local" name="data" value="2024-08-04" required>
       </div>
 
-      <div class="item-form">
-        <label>Tratamento:</label>
-        <select>
-          <option selected disabled>Selecione o Tratamento</option>
-        </select>
-      </div>
+      <?php
+      $atendimentoView->ListarTratamentos();
+      ?>
 
       <div class="item-form-bloco">
         <label>Descrição do Tratamento:</label>
@@ -42,11 +47,21 @@
 
       <div class="item-form-bloco">
         <label>Descrição do Atendimento:</label>
-        <textarea rows="6"></textarea>
+        <textarea id="mensagem" name="descricao" rows="6"></textarea>
       </div>
 
-      <button class="botao">Salvar</button>
+      <button class="botao" type="submit" name="salvar">Salvar</button>
     </form>
+
+    <?php
+    if (isset($_POST['salvar'])) {
+      if (isset($_POST['tratamento'], $_POST['data'])) {
+        $atendimentoView->SalvarAtendimento($idAnimal, $_POST['tratamento'], $_POST['data'], $_POST['descricao']);
+      } else {
+        echo '<p>Selecione o Tratamento!</p>';
+      }
+    }
+    ?>
   </section>
 
   <section id="area-historico">
