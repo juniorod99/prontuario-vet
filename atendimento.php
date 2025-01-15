@@ -4,6 +4,7 @@ require_once('config.php');
 if (isset($_GET['id'])) {
   $idAnimal = $_GET['id'];
 }
+$atendimentoView = new AtendimentoView();
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,7 +20,7 @@ if (isset($_GET['id'])) {
 <body>
   <section id="area-titulo">
     <h1>Atendimento</h1>
-    <a href="index.html" class="botao">Voltar</a>
+    <a href="index.php" class="botao">Voltar</a>
   </section>
 
   <section id="area-tratamento">
@@ -27,7 +28,7 @@ if (isset($_GET['id'])) {
     <form action="atendimento.php?id=<?= $idAnimal ?>" method="POST">
 
       <?php
-      $atendimentoView = new AtendimentoView();
+      // $atendimentoView = new AtendimentoView();
       $atendimentoView->ExibirDadosAnimal($idAnimal);
       ?>
 
@@ -66,25 +67,9 @@ if (isset($_GET['id'])) {
 
   <section id="area-historico">
     <h1>Histórico</h1>
-    <table>
-      <thead>
-        <th>Data</th>
-        <th>Tratamento</th>
-        <th>Descrição do Tratamento</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="data">30/08/2024 às 11:35</td>
-          <td>Vermifugação</td>
-          <td>Houve reação alérgica e foi adminitrado Apoquel 6g</td>
-        </tr>
-        <tr>
-          <td class="data">30/08/2024 às 11:30</td>
-          <td>Vacina Antirrábica</td>
-          <td>Renovar em 1 ano</td>
-        </tr>
-      </tbody>
-    </table>
+    <?php
+    $atendimentoView->ExibirHistorico($idAnimal);
+    ?>
   </section>
 </body>
 

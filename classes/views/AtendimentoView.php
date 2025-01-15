@@ -47,14 +47,45 @@ class AtendimentoView
   {
     $atendimentoController = new AtendimentoController();
     $salvarAtendimento = $atendimentoController->SalvarAtendimento($idAnimal, $idTratamento, $data, $descricao);
-
     echo $salvarAtendimento;
-    // echo $idAnimal;
-    // echo '<br>';
-    // echo $idTratamento;
-    // echo '<br>';
-    // echo $data;
-    // echo '<br>';
-    // echo $descricao;
+    header('Location: atendimento.php?id=' . $idAnimal);
+  }
+
+  function ExibirHistorico($idAnimal)
+  {
+    $atendimentoController = new AtendimentoController();
+    $exibirHistorico = $atendimentoController->ExibirHistorico($idAnimal);
+
+    if (count($exibirHistorico) > 0) {
+
+      echo '
+        <table>
+          <thead>
+            <th>Data</th>
+            <th>Tratamento</th>
+            <th>Descrição do Tratamento</th>
+          </thead>
+          <tbody>
+      ';
+      for ($i = 0; $i < count($exibirHistorico); $i++) {
+        $dataObjeto = new DateTime($exibirHistorico[$i]->Data);
+        $dataFormatada = $dataObjeto->format('d/m/Y \á\s H:i');
+
+        echo "
+          <tr>
+            <td class='data'>{$dataFormatada}</td>
+            <td>{$exibirHistorico[$i]->Tratamento}</td>
+            <td>{$exibirHistorico[$i]->Descricao}</td>
+          </tr>
+        ";
+      }
+
+      echo '
+          </tbody>
+        </table>
+      ';
+    } else {
+      echo '<p>Este animal não possui histórico de tratamento.</p>';
+    }
   }
 }
