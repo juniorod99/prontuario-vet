@@ -1,16 +1,22 @@
 <?php
-class Animal{
+class Animal
+{
   public $Codigo;
   public $Nome;
   public $Especie;
 
-  function __construct($codigo = null, $nome = null, Especie $especie = null) {
+  function __construct($codigo = null, $nome = null, Especie $especie = null)
+  {
     $this->Codigo =  $codigo;
     $this->Nome = $nome;
-    if($especie != null)
+    if ($especie != null)
       $this->Especie = $especie;
     else
       $this->Especie = new Especie();
   }
+
+  public function setNome($nome)
+  {
+    $this->Nome = $nome;
+  }
 }
-?>

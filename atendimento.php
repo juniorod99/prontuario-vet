@@ -43,7 +43,7 @@ $atendimentoView = new AtendimentoView();
 
       <div class="item-form-bloco">
         <label>Descrição do Tratamento:</label>
-        <textarea rows="2" disabled>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere ducimus saepe eum ea id, ex, deleniti non repellendus impedit provident laborum perferendis excepturi voluptate voluptatum magnam dolor rerum, laudantium velit?</textarea>
+        <textarea id="descricao" rows="2" disabled>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere ducimus saepe eum ea id, ex, deleniti non repellendus impedit provident laborum perferendis excepturi voluptate voluptatum magnam dolor rerum, laudantium velit?</textarea>
       </div>
 
       <div class="item-form-bloco">
@@ -71,6 +71,7 @@ $atendimentoView = new AtendimentoView();
     $atendimentoView->ExibirHistorico($idAnimal);
     ?>
   </section>
+  <script defer src="js/script.js"></script>
 </body>
 
 </html>

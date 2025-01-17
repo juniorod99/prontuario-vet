@@ -15,10 +15,12 @@ class AtendimentoController
       $cSQL->execute();
 
       $nomeAnimal = $cSQL->fetch(PDO::FETCH_ASSOC);
+      $animal = new Animal();
+      $animal->setNome($nomeAnimal['nm_animal']);
     } catch (PDOException $e) {
       echo 'Erro:' . $e->getMessage();
     }
-    return $nomeAnimal;
+    return $animal;
   }
 
   function ListarTratamentos()
@@ -26,6 +28,7 @@ class AtendimentoController
     $servidor = 'mysql:host=localhost;dbname=prontuario_vet';
     $usuario = 'root';
     $senha = 'root';
+    $lista = [];
 
     try {
       $pdo = new PDO($servidor, $usuario, $senha);
@@ -33,11 +36,18 @@ class AtendimentoController
       $cSQL = $pdo->prepare('SELECT cd_tratamento, nm_tratamento, ds_tratamento FROM tratamento');
       $cSQL->execute();
 
-      $tratamentos = $cSQL->fetchAll(PDO::FETCH_ASSOC);
+      while ($tratamentos = $cSQL->fetch(PDO::FETCH_ASSOC)) {
+        $codigoTratamento = $tratamentos['cd_tratamento'];
+        $nomeTratamento = $tratamentos['nm_tratamento'];
+        $descricaoTratamento = $tratamentos['ds_tratamento'];
+
+        $tratamento = new Tratamento($codigoTratamento, $nomeTratamento, $descricaoTratamento);
+        array_push($lista, $tratamento);
+      };
     } catch (PDOException $e) {
       echo 'Erro:' . $e->getMessage();
     }
-    return $tratamentos;
+    return $lista;
   }
 
   function AlterarDescricaoTratamento() {}
@@ -98,8 +108,6 @@ class AtendimentoController
         $historico = new Historico($dataTratamento, $nomeTratamento, $observacao);
         array_push($lista, $historico);
       };
-      // $pdo = null;
-      // $resultado = $cSQL->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
       echo 'Erro:' . $e->getMessage();
     }

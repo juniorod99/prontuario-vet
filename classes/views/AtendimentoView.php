@@ -5,11 +5,11 @@ class AtendimentoView
   {
     $atendimentoController = new AtendimentoController();
     $nomeAnimal = $atendimentoController->ListarNomeAnimal($id);
-    // var_dump($nomeAnimal);
+    // print_r($nomeAnimal);
     echo "
       <div class='item-form'>
         <label>Nome do animal:</label>
-        <input type='text' disabled placeholder='{$nomeAnimal['nm_animal']}'>
+        <input type='text' disabled placeholder='{$nomeAnimal->Nome}'>
       </div>";
   }
 
@@ -17,17 +17,16 @@ class AtendimentoView
   {
     $atendimentoController = new AtendimentoController();
     $listaTratamentos = $atendimentoController->ListarTratamentos();
-    // var_dump($listaTratamentos);
     echo "
       <div class='item-form'>
         <label>Tratamento:</label>
-        <select name='tratamento' required>
+        <select name='tratamento' id='tratamento' onchange='atualizarDescricao()' required>
           <option selected disabled>Selecione o Tratamento</option>
     ";
 
     for ($i = 0; $i < count($listaTratamentos); $i++) {
       echo "
-        <option value='{$listaTratamentos[$i]['cd_tratamento']}' >{$listaTratamentos[$i]['nm_tratamento']}</option>
+        <option value='{$listaTratamentos[$i]->Codigo}' descricao='{$listaTratamentos[$i]->Descricao}' >{$listaTratamentos[$i]->Nome}</option>
       ";
     }
 
