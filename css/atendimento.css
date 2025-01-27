@@ -4,11 +4,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #a43ec7;
+  border-bottom: 1px solid var(--green);
 }
 
 #area-titulo h1 {
   font-size: 1.5rem;
+  color: var(--green);
 }
 
 #area-tratamento, #area-historico {
@@ -20,13 +21,13 @@
 
 #area-tratamento h1, #area-historico h1 {
   font-size: 1.2rem;
-  color: #a43ec7;
+  color: var(--green);
 }
 
 #area-tratamento input, #area-tratamento select, #area-tratamento textarea {
   width: 100%;
   padding: 10px;
-  border: thin solid #a43ec7;
+  border: thin solid var(--green);
   border-radius: 5px;
   resize: none;
 }
@@ -58,7 +59,7 @@
   flex-direction: column;
 }
 
-.botao {
+/* .botao {
   text-decoration: none;
   background-color: #a43ec7;
   color: #fff;
@@ -66,7 +67,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
+} */
 
 #area-tratamento > form > button {
   margin: auto;
@@ -74,12 +75,12 @@
 
 table {
   width: 100%;
-  border: thin solid #a43ec7;
+  border: thin solid var(--green);
   border-collapse: collapse;
 }
 
 table th {
-  background-color: #a43ec7;
+  background-color: var(--green);
   color: #fff;
   padding: 10px;
 }
