@@ -10,7 +10,7 @@ class AnimalView
       echo "
         <div class='caixaAnimal'>
             <a href='atendimento.php?id={$listaTodosAnimais[$i]->Codigo}'>
-                <img src='images/{$listaTodosAnimais[$i]->Nome}.png'>    
+                <img src='images/{$listaTodosAnimais[$i]->Foto}'>    
                 <div>
                     <h1>{$listaTodosAnimais[$i]->Nome}</h1>
                     <p>{$listaTodosAnimais[$i]->Especie->Nome}</p>
@@ -32,7 +32,7 @@ class AnimalView
         echo "
           <div class='caixaAnimal'>
               <a href='atendimento.php?id={$listaAnimaisComEsteNome[$i]->Codigo}'>
-                  <img src='images/{$listaAnimaisComEsteNome[$i]->Nome}.png'>    
+                  <img src='images/{$listaAnimaisComEsteNome[$i]->Foto}'>    
                   <div>
                       <h1>{$listaAnimaisComEsteNome[$i]->Nome}</h1>
                       <p>{$listaAnimaisComEsteNome[$i]->Especie->Nome}</p>
