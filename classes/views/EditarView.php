@@ -41,11 +41,25 @@ class EditarView
                 </select>
             </div>
         ";
+
+        return $dadosAnimal;
     }
 
     function AlterarDados($id, $nome, $idEspecie, $imagem)
     {
         $editarController = new EditarController();
         $editarCadastro = $editarController->AlterarDados($id, $nome, $idEspecie, $imagem);
+    }
+
+    function AlterarNomeEspecie($id, $nome, $especie)
+    {
+        $editarController = new EditarController();
+        $editarCadastro = $editarController->AlterarNomeEspecie($id, $nome, $especie);
+    }
+
+    function AlterarFoto($id, $imagem)
+    {
+        $editarController = new EditarController();
+        $editarCadastro = $editarController->AlterarFoto($id, $imagem);
     }
 }

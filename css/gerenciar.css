@@ -52,3 +52,21 @@
 .opcoes a i{
     font-size: 1.5rem;
 }
+
+.notificacao{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--white);
+    font-weight: 600;
+    background-color: var(--green);
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.notificacao i {
+    /* padding: 10px; */
+    font-size: 1.5rem;
+    cursor: pointer;
+}

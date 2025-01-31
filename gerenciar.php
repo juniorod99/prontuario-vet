@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('config.php');
 
 $gerenciarView = new GerenciarView();
@@ -21,10 +22,15 @@ $gerenciarView = new GerenciarView();
     </section>
 
     <section id="lista_animais">
-        <div class="notificacao">
-            <p>Cadastro atualizado com sucesso!</p>
-            <i class="fa-solid fa-xmark"></i>
-        </div>
+        <?php if (isset($_SESSION['mensagem'])): ?>
+            <div class="notificacao">
+                <p><?= $_SESSION['mensagem'] ?></p>
+                <i class="fa-solid fa-xmark fechar_notificacao"></i>
+            </div>
+        <?php
+        endif;
+        unset($_SESSION['mensagem']);
+        ?>
         <table>
             <thead>
                 <tr>
@@ -42,7 +48,7 @@ $gerenciarView = new GerenciarView();
         </table>
     </section>
 
-    <script src="./js/script.js"></script>
+    <script src="./js/fecharNotificacao.js"></script>
 </body>
 
 </html>

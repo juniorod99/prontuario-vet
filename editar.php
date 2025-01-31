@@ -30,15 +30,24 @@ $editarView = new EditarView();
         ?>
 
         <?php
-        $editarView->ExibirDadosAnimal($idAnimal);
+        $dados = $editarView->ExibirDadosAnimal($idAnimal);
         ?>
         <button class="botao botao-cadastro" type="submit" name="salvar">Salvar</button>
 
         </form>
         <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar'])) {
-            if (isset($_POST['nome'], $_POST['especie'], $_FILES['file'])) {
-                $editarView->AlterarDados($idAnimal, $_POST['nome'], $_POST['especie'], $_FILES['file']);
+            if ($dados->Nome != $_POST['nome'] || $dados->Especie->Codigo != $_POST['especie']) {
+                if ($_FILES['file']['tmp_name']) {
+                    $editarView->AlterarDados($idAnimal, $_POST['nome'], $_POST['especie'], $_FILES['file']);
+                    exit();
+                } else {
+                    $editarView->AlterarNomeEspecie($idAnimal, $_POST['nome'], $_POST['especie']);
+                }
+            }
+
+            if ($_FILES['file']['tmp_name']) {
+                $editarView->AlterarFoto($idAnimal, $_FILES['file']);
             }
         }
         ?>

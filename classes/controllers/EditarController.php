@@ -67,6 +67,7 @@ class EditarController
 
     function AlterarDados($id, $nome, $idEspecie, $imagem)
     {
+        session_start();
         $servidor = 'mysql:host=localhost;dbname=prontuario_vet';
         $usuario = 'root';
         $senha = 'root';
@@ -77,7 +78,6 @@ class EditarController
         } catch (PDOException $e) {
             echo 'Erro:' . $e->getMessage();
         }
-
         $stmt = $pdo->prepare('SELECT ft_animal FROM animal WHERE cd_animal = :codigo');
         $stmt->bindParam(':codigo', $id);
         $stmt->execute();
@@ -90,7 +90,6 @@ class EditarController
         var_dump(file_exists($caminhoCompleto));
 
         if (file_exists($caminhoCompleto)) {
-            // echo 'aqui';
             if (is_writable($caminhoCompleto)) {
                 if (unlink($caminhoCompleto)) {
                     $arquivoTmp = $imagem['tmp_name'];
@@ -112,8 +111,88 @@ class EditarController
         }
 
         if ($stmt2->rowCount() > 0) {
+            $_SESSION['mensagem'] = "Cadastro atualizado com sucesso!";
+        } else {
+            $_SESSION['mensagem'] = "Nenhum registro foi atualizado.";
+        }
+        header('Location: gerenciar.php');
+        exit();
+    }
+
+    function AlterarNomeEspecie($id, $nome, $especie)
+    {
+        session_start();
+        $servidor = 'mysql:host=localhost;dbname=prontuario_vet';
+        $usuario = 'root';
+        $senha = 'root';
+
+        try {
+            $pdo = new PDO($servidor, $usuario, $senha);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $pdo->prepare('UPDATE animal SET nm_animal = :nome, cd_especie = :especie WHERE cd_animal = :codigo');
+            $stmt->bindParam(':codigo', $id);
+            $stmt->bindParam(':nome', $nome);
+            $stmt->bindParam(':especie', $especie);
+            $stmt->execute();
+
+            if ($stmt->rowCount() > 0) {
+                $_SESSION['mensagem'] = "Dados atualizados com sucesso!";
+            } else {
+                $_SESSION['mensagem'] = "Nenhum registro foi atualizado.";
+            }
             header('Location: gerenciar.php');
             exit();
+        } catch (PDOException $e) {
+            echo 'Erro:' . $e->getMessage();
+        }
+    }
+
+    function AlterarFoto($id, $imagem)
+    {
+        session_start();
+        $servidor = 'mysql:host=localhost;dbname=prontuario_vet';
+        $usuario = 'root';
+        $senha = 'root';
+
+        try {
+            $pdo = new PDO($servidor, $usuario, $senha);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $pdo->prepare('SELECT ft_animal FROM animal WHERE cd_animal = :codigo');
+            $stmt->bindParam(':codigo', $id);
+            $stmt->execute();
+
+            $antigaFoto = $stmt->fetch(PDO::FETCH_ASSOC);
+            $diretorio = 'images/';
+            $caminhoCompleto = $diretorio . $antigaFoto['ft_animal'];
+
+            if (file_exists($caminhoCompleto)) {
+                if (is_writable($caminhoCompleto)) {
+                    if (unlink($caminhoCompleto)) {
+                        $arquivoTmp = $imagem['tmp_name'];
+                        $nomeOriginal = $imagem['name'];
+                        $extensao = pathinfo($nomeOriginal, PATHINFO_EXTENSION);
+                        $novoNome = md5(uniqid()) . '.' . $extensao;
+                        $caminhoCompleto = $diretorio . $novoNome;
+
+                        if (move_uploaded_file($arquivoTmp, $caminhoCompleto)) {
+                            $stmt2 = $pdo->prepare('UPDATE animal SET ft_animal = :foto WHERE cd_animal = :id');
+                            $stmt2->bindParam(':foto', $novoNome);
+                            $stmt2->bindParam(':id', $id);
+                            $stmt2->execute();
+                        }
+                    }
+                }
+            }
+
+            if ($stmt2->rowCount() > 0) {
+                $_SESSION['mensagem'] = "Foto alterada com sucesso!";
+            } else {
+                $_SESSION['mensagem'] = "Nenhum registro foi atualizado.";
+            }
+            header('Location: gerenciar.php');
+            exit();
+        } catch (PDOException $e) {
+            echo 'Erro:' . $e->getMessage();
         }
     }
 }
