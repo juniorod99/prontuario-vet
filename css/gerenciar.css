@@ -1,0 +1,54 @@
+#lista_animais{
+    padding: 30px;
+}
+
+#lista_animais table{
+    border: thin solid var(--green);
+    border-collapse: collapse;
+}
+
+#lista_animais table thead{
+    background-color: var(--green);
+    color: var(--white);
+    font-weight: 600;
+}
+
+#lista_animais table tr{
+    border-bottom: 1px solid var(--green);
+}
+
+#lista_animais table tr:last-child{
+    border-bottom: none;
+}
+
+#lista_animais table tr:nth-child(even){
+    background-color: var(--white);
+}
+
+#lista_animais table tr td:nth-child(3){
+    text-align: center;
+}
+
+#lista_animais table tr td:last-child{
+    text-align: end;
+}
+
+.foto_animal{
+    width: 50px;
+    height: 50px;
+    object-fit:cover ;
+    border-radius: 50%;
+}
+
+.opcoes a{
+    text-decoration: none;
+    color: var(--black);
+}
+
+.opcoes a:first-child{
+    margin-right: 15px;
+}
+
+.opcoes a i{
+    font-size: 1.5rem;
+}

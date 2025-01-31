@@ -49,8 +49,9 @@ class AnimalController
     try {
       $pdo = new PDO($servidor, $usuario, $senha);
       $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $cSQL = $pdo->prepare('SELECT cd_animal, nm_animal, cd_especie FROM animal WHERE nm_animal = :nome');
-      $cSQL->bindParam('nome', $nome);
+      $termo = "%{$nome}%";
+      $cSQL = $pdo->prepare('SELECT cd_animal, nm_animal, cd_especie, ft_animal FROM animal WHERE nm_animal LIKE :termo');
+      $cSQL->bindParam('termo', $termo);
       $cSQL->execute();
 
       while ($dados = $cSQL->fetch(PDO::FETCH_ASSOC)) {

@@ -1,10 +1,10 @@
 <?php
 require_once('config.php');
 
-$buscar = false;
+$buscar = true;
 $valor = "";
 if (isset($_GET['valorBusca'])) {
-  $buscar = true;
+  // $buscar = true;
   if ($_GET['valorBusca'] != "") {
     $valor = $_GET['valorBusca'];
   }
@@ -33,6 +33,7 @@ if (isset($_GET['valorBusca'])) {
 
     <div id="cadastro">
       <a class="botao" href="cadastro.php">Cadastrar pet</a>
+      <a class="botao" href="gerenciar.php">Gerênciar</a>
     </div>
   </header>
 

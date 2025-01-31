@@ -39,7 +39,6 @@ $cadastroView = new CadastroView();
             </div>
 
             <?php
-
             $cadastroView->gerarOpcoesEspecie();
             ?>
 
@@ -47,8 +46,6 @@ $cadastroView = new CadastroView();
 
         </form>
         <?php
-
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['salvar'])) {
             if (isset($_POST['nome'], $_POST['especie'], $_FILES['file'])) {
                 $cadastroView->CadastrarAnimal($_POST['nome'], $_POST['especie'], $_FILES['file']);

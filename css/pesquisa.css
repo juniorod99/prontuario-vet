@@ -90,6 +90,7 @@ header #logo img{
     display: flex;
     justify-content: end;
     white-space: nowrap;
+    gap: 10px;
 }
 
 .botao{
@@ -155,26 +156,25 @@ header #logo img{
 
 
 .caixaAnimal h1 {
-    /* color: #a43ec7; */
     text-transform: uppercase;
 }
 
 @media (width <= 750px){
     header{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 20px;
         padding: 20px 10px;
     }
 
-    header #area-busca{
-        grid-column: span 2;
+    header #logo{
+        order: -2;
     }
 
     header #cadastro{
-        grid-row: 1;
-        grid-column: 2;
+        order: -1;
     }
     #area-busca input{
         width: 100%;

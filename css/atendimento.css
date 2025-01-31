@@ -96,3 +96,9 @@ table td.data {
 table tr:nth-child(even) {
   background-color: #fdf7ff;
 }
+
+@media (width <= 600px){
+  .item-form{
+    width: 100%;
+  }
+}
