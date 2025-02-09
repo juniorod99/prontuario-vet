@@ -27,7 +27,6 @@ $atendimentoView = new AtendimentoView();
     <form action="atendimento.php?id=<?= $idAnimal ?>" method="POST">
 
       <?php
-      // $atendimentoView = new AtendimentoView();
       $atendimentoView->ExibirDadosAnimal($idAnimal);
       ?>
 
